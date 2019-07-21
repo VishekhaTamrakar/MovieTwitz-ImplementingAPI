@@ -16,23 +16,23 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Eagle Financial Services</a>
+        <a class="navbar-brand" href="/">MovieTwizt</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'portfolio:home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'app:home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'portfolio:customer_list' %}">Customers</a>
+                    <a class="nav-link" href="#">Nav1</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'portfolio:investment_list' %}">Investments</a>
+                    <a class="nav-link" href="#">Nav2</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'portfolio:stock_list' %}">Stocks</a>
+                    <a class="nav-link" href="#">Nav3</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -50,7 +50,7 @@
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'portfolio:signup' %}">Sign Up</a>
+                        <a class="nav-link" href="{% url 'app:signup' %}">Sign Up</a>
                     </li>
                 {% endif %}
             </ul>
