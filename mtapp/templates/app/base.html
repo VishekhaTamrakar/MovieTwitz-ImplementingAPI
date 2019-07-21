@@ -16,14 +16,14 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Eagle Financial Services</a>
+        <a class="navbar-brand" href="/">MovieTwizt</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'portfolio:home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'app:home' %}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Nav1</a>
@@ -50,7 +50,7 @@
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'portfolio:signup' %}">Sign Up</a>
+                        <a class="nav-link" href="{% url 'app:signup' %}">Sign Up</a>
                     </li>
                 {% endif %}
             </ul>

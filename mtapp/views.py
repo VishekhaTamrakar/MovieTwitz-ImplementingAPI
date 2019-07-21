@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from .models import Movie
+from .forms import UserForm
 
 now = timezone.now()
 
@@ -11,3 +12,19 @@ now = timezone.now()
 
 def home(request):
     return render(request, 'app/home.html')
+
+def signup(request):
+    if request.method=="POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return render(request, 'app/home.html')
+    else:
+        form = UserForm()
+    return render(request, 'registration/signup.html', {'form': form})
