@@ -2,4 +2,5 @@
 *.pyo
 .idea
 __pycache__
+db.sqlite3
 efs/local_settings.py
