@@ -9,4 +9,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     url(r'^home/$', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
+    path('movie/<int:pk>/detail', views.movie_detail, name='movie_detail'),
 ]

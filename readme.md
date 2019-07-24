@@ -37,11 +37,19 @@ Heroku -
 
    `pip install django==2.0.5`
 
-5. Use the below details to access the superuser page
+5. Run the below command to install the applications and dependencies
 
-   username - **test**
+   `pip install -r requirements.txt`
 
-   password - **movietester**
+6. Migrate to create the tables and create a super user
+
+   `python manage.py migrate`
+
+   `python manage.py createsuperuser`
+
+7. Run the local server by going to [http://127.0.0.1:8000](http://127.0.0.1:8000/)
+
+
 
 ## Collaborators
 
