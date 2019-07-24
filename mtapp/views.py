@@ -51,12 +51,13 @@ def movie_edit(request, pk):
        # update
        form = MovieForm(request.POST, instance=movie)
        if form.is_valid():
-           movie = form.save(commit=False)
-           movie.updated_date = timezone.now()
-           movie.save()
-           movie_list = Movie.objects.all()
-           return render(request, 'app/movie_list.html',
-                         {'movie_list': movie_list})
+            movie = form.save(commit=False)
+            movie.updated_date = timezone.now()
+            movie.save()
+        #    movie_list = Movie.objects.all()
+        #    return render(request, 'app/movie_list.html',
+        #                  {'movie_list': movie_list})
+            return redirect('app:movie_detail', pk=pk)
     else:
         # edit
        form = MovieForm(instance=movie)
