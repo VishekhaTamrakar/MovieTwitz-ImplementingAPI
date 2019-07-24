@@ -15,6 +15,8 @@ now = timezone.now()
 def home(request):
     return render(request, 'app/home.html')
 
+
+
 def signup(request):
     if request.method=="POST":
         form = UserForm(request.POST)
@@ -78,3 +80,9 @@ def movie_detail(request, pk):
         'movie': movie,
         #'imdb_movie': imovie,
     })
+
+def About(request):
+    return render(request, 'About.html')
+
+def Contact(request):
+ return render(request,'Contact.html')
