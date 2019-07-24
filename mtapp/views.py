@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from watson_developer_cloud import LanguageTranslatorV3
+import json
 from .models import Movie
 from .forms import MovieForm
 
@@ -80,8 +82,18 @@ def movie_new(request):
        # print("Else")
    return render(request, 'app/movie_new.html', {'form': form})
 
+language_translator = LanguageTranslatorV3(
+    version='2018-05-01',
+    iam_apikey='8aBDAhLIsZ_v4LcakmqYOMyP2nWhKAUGrTR6KZE71Ic3')
+
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
+    translation = language_translator.translate(
+        text=movie.review, model_id='en-es').get_result()
+    obj = (json.dumps(translation, indent=2, ensure_ascii=False))
+    print(obj)
+    obj2 = json.loads(obj)
+    movie.obj2 = obj2['translations'][0]['translation']
     #imovie = Imdb_movie(movie.imdb_id)
     return render(request, 'app/movie_detail.html', {
         'movie': movie,
