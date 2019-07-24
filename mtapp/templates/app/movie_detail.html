@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{{ movie.poster }}" alt="Poster">
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <h2>{{ movie.name }}</h2>
+                    <a href="{% url 'app:movie_edit' pk=movie.pk%}">
+                        &nbsp;<i class="fas fa-pen-square" title="Edit"></i>
+                    </a>
+                </div>
+                <!-- <p>Released on {{ movie.release_date }} | IMDb - {{ imdb_movie.imdb_rating }}</p> -->
+                
+                <h4>Movie Details</h4>
+                <dl class="row">
+                    <dt class="col-sm-4">Genre</dt>
+                    <dd class="col-sm-8">{{ movie.genre }}</dd>
+        
+                    <dt class="col-sm-4">Directed By</dt>
+                    <dd class="col-sm-8">{{ movie.directed_by }}</dd>
+        
+                    <dt class="col-sm-4">Movie Runtime</dt>
+                    <dd class="col-sm-8">{{ movie.runtime }} minutes</dd>
+
+                    <dt class="col-sm-4">Notable Casts</dt>
+                    <dd class="col-sm-8">{{ movie.notable_casts }} minutes</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <br/>
+                <h2>MovieTwizt Review</h2>
+                <h5>MovieTwizt Rating - {{ movie.rating }}</h5>
+                <p>{{ movie.review }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- genre = models.CharField(max_length=50)
+    directed_by = models.CharField(max_length=50)
+    runtime = models.IntegerField(blank=False)
+    notable_casts = models.CharField(max_length=50)
+    rating = models.DecimalField(max_digits=2, decimal_places=1)
+    disc_price = models.DecimalField(max_digits=5, decimal_places=2)
+    review = models.TextField()
+    #audit fields
+    created_date = models.DateTimeField(default=timezone.now)
+    updated_date = models.DateTimeField(auto_now_add=True) -->
+{% endblock %}
