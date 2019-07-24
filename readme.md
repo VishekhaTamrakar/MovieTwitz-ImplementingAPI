@@ -50,7 +50,26 @@ Heroku -
 
    `python manage.py createsuperuser`
 
-7. Run the local server by going to [http://127.0.0.1:8000](http://127.0.0.1:8000/)
+7. Add local settings to `mtzt/local_settings.py`, i.e. in the same folder as `settings.py`
+
+8. In local_settings.py add the below code
+
+   ```python
+   import os
+   
+   BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+   
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.sqlite3',
+           'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       }
+   }
+   
+   DEBUG = True
+   ```
+
+9. Run the local server by going to [http://127.0.0.1:8000](http://127.0.0.1:8000/)
 
 
 
