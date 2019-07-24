@@ -5,6 +5,14 @@
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="row">
+            <div class="col-12">
+                <p>Admin Action: 
+                    <a href="{% url 'app:movie_new' %}">Add New</a>
+                </p>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
             {% for movie in movie_list %}
             <div class="col-lg-4 text-center">
                 <a href="{% url 'app:movie_detail' pk=movie.pk %}">
