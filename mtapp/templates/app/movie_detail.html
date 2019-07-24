@@ -6,11 +6,17 @@
     <div class="col-lg-10">
         <div class="row">
             <div class="col-lg-4">
-                <!-- <img src="{{ imdb_movie.poster }}" alt="Poster"> -->
+                <img src="{{ movie.poster }}" alt="Poster">
             </div>
             <div class="col-lg-8">
-                <h2>{{ movie.name }}</h2>
+                <div class="row">
+                    <h2>{{ movie.name }}</h2>
+                    <a href="{% url 'app:movie_edit' pk=movie.pk%}">
+                        &nbsp;<i class="fas fa-pen-square" title="Edit"></i>
+                    </a>
+                </div>
                 <!-- <p>Released on {{ movie.release_date }} | IMDb - {{ imdb_movie.imdb_rating }}</p> -->
+                
                 <h4>Movie Details</h4>
                 <dl class="row">
                     <dt class="col-sm-4">Genre</dt>
@@ -29,6 +35,7 @@
         </div>
         <div class="row">
             <div class="col-12">
+                <br/>
                 <h2>MovieTwizt Review</h2>
                 <h5>MovieTwizt Rating - {{ movie.rating }}</h5>
                 <p>{{ movie.review }}</p>
