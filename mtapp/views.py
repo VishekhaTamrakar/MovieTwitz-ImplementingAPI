@@ -73,8 +73,8 @@ def movie_new(request):
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    imovie = Imdb_movie(movie.imdb_id)
+    #imovie = Imdb_movie(movie.imdb_id)
     return render(request, 'app/movie_detail.html', {
         'movie': movie,
-        'imdb_movie': imovie,
+        #'imdb_movie': imovie,
     })
