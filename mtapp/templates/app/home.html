@@ -2,61 +2,35 @@
 {% load staticfiles %}
 {% block content %}
 
- <div class="content container"  >
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="links">
-                            <!-- Example row of columns -->
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="thumbnail">
-                                        <img src="{% static "images/A1.jpg" %}" alt="A1"/>
-                                        <div class="caption">
-
-                                            <p><B>Avengers End Game</B></p>
-                                            <p><a class="btn btn-primary" navbar role="button">View details &raquo;</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-    <BR>
-
-     <div class="col-md-3">
-                                    <div class="thumbnail">
-                                        <img src="{% static "images/CM.jpg" %}" alt="CM"/>
-                                        <div class="caption">
-
-                                            <p><b>Captain Marvel 2019</b></p>
-                                            <p><a class="btn btn-primary" navbar
-                                                  role="button">View
-                                                details &raquo;</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-     <div class="col-md-3">
-                                    <div class="thumbnail">
-                                        <img src="{% static "images/T1.jpg" %}" alt="T1"/>
-                                        <div class="caption">
-
-                                            <p><b>Toy Story</b></p>
-                                            <p><a class="btn btn-primary" navbar
-                                                  role="button">View
-                                                details &raquo;</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-    <div class="col-md-3">
-                                    <div class="thumbnail">
-                                        <img src="{% static "images/L1.jpg" %}" alt="T1"/>
-                                        <div class="caption">
-
-                                            <p><b>Toy Story</b></p>
-                                            <p><a class="btn btn-primary" navbar
-                                                  role="button">View
-                                                details &raquo;</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="form-row">
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-lg" placeholder="Search for movies">
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-lg">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            {% for movie in movie_list %}
+            <div class="col-lg-4 text-center">
+                <a href="{% url 'app:movie_detail' pk=movie.pk %}">
+                    <img src="{{ movie.poster }}" class="mx-auto" alt="Poster">
+                </a>
+                <h5>{{ movie.name }}</h5>
+                <p>Rating - {{ movie.rating }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

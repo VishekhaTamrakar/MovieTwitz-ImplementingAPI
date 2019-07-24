@@ -13,7 +13,10 @@ now = timezone.now()
 # Create your views here.
 
 def home(request):
-    return render(request, 'app/home.html')
+    movie_list = Movie.objects.all()
+    return render(request, 'app/home.html', {
+        'movie_list': movie_list,
+    })
 
 def signup(request):
     if request.method=="POST":
