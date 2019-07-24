@@ -7,6 +7,7 @@ class Movie(models.Model):
     name = models.CharField(max_length=50)
     release_date = models.DateField(null=True)
     imdb_id = models.CharField(max_length=20)
+    poster = models.CharField(max_length=500, null=True)
     genre = models.CharField(max_length=50)
     directed_by = models.CharField(max_length=50)
     runtime = models.IntegerField(blank=False)
