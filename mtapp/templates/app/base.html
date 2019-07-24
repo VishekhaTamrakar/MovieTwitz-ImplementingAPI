@@ -29,10 +29,7 @@
                     <a class="nav-link" href="{% url 'app:movie_list' %}">Movie List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">DVD Details</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Order Details</a>
+                    <a class="nav-link" href="#">Movies Around</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -41,10 +38,9 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ user.first_name }}
                         </a>
-
-                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
-
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                            <a class="dropdown-item" href="#">My Orders</a>
                         </div>
                     </li>
                 {% else %}
