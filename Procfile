@@ -1,0 +1,1 @@
+web: gunicorn mtzt.wsgi --log-file -
