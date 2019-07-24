@@ -15,8 +15,6 @@ now = timezone.now()
 def home(request):
     return render(request, 'app/home.html')
 
-
-
 def signup(request):
     if request.method=="POST":
         form = UserForm(request.POST)
@@ -32,6 +30,12 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def movie_list(request):
+    movie_list = Movie.objects.all()
+    return render(request, 'app/movie_list.html', {
+        'movie_list': movie_list,
+    })
 
 @login_required
 def movie_edit(request, pk):

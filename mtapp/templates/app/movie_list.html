@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row">
+            {% for movie in movie_list %}
+            <div class="col-lg-4 text-center">
+                <a href="{% url 'app:movie_detail' pk=movie.pk %}">
+                    <img src="{{ movie.poster }}" class="mx-auto" alt="Poster">
+                </a>
+                <h5>{{ movie.name }}</h5>
+                <p>Rating - {{ movie.rating }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
