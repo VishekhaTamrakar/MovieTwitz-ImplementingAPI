@@ -36,6 +36,8 @@ def signup(request):
         form = UserForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+
+# Movie Views
 def movie_list(request):
     movie_list = Movie.objects.all()
     return render(request, 'app/movie_list.html', {
@@ -52,9 +54,9 @@ def movie_edit(request, pk):
            movie = form.save(commit=False)
            movie.updated_date = timezone.now()
            movie.save()
-           movie = Movie.objects.filter(created_date__lte=timezone.now())
+           movie_list = Movie.objects.all()
            return render(request, 'app/movie_list.html',
-                         {'movies': movie})
+                         {'movie_list': movie_list})
     else:
         # edit
        form = MovieForm(instance=movie)
@@ -74,9 +76,9 @@ def movie_new(request):
            movie = form.save(commit=False)
            movie.created_date = timezone.now()
            movie.save()
-           movies = Movie.objects.filter(created_date__lte=timezone.now())
+           movie_list = Movie.objects.all()
            return render(request, 'app/movie_list.html',
-                         {'movies': movies})
+                         {'movie_list': movie_list})
    else:
        form = MovieForm()
        # print("Else")
