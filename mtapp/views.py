@@ -94,10 +94,10 @@ def movie_detail(request, pk):
     print(obj)
     obj2 = json.loads(obj)
     movie.obj2 = obj2['translations'][0]['translation']
-    #imovie = Imdb_movie(movie.imdb_id)
+    imovie = Imdb_movie(movie.imdb_id)
     return render(request, 'app/movie_detail.html', {
         'movie': movie,
-        #'imdb_movie': imovie,
+        'imdb_movie': imovie,
     })
 
 def About(request):
