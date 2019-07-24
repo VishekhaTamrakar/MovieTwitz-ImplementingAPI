@@ -36,6 +36,9 @@ Heroku -
 4. Install Django
 
    `pip install django==2.0.5`
+   'pip install django -paypal'
+   'pip install pillow'
+   'pip install django-crispy-forms'
 
 5. Run the below command to install the applications and dependencies
 
