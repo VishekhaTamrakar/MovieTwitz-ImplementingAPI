@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import Movie
 from .forms import MovieForm
 
-from .models import Movie
+from .models import Movie, Imdb_movie
 from .forms import UserForm
 
 now = timezone.now()
@@ -30,13 +30,6 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'registration/signup.html', {'form': form})
-
-@login_required
-def movie_list(request):
-    movie = Movie.objects.filter(created_date__lte=timezone.now())
-    return render(request, 'app/movie_list.html',
-                 {'movies': movie})
-
 
 @login_required
 def movie_edit(request, pk):
@@ -77,3 +70,11 @@ def movie_new(request):
        form = MovieForm()
        # print("Else")
    return render(request, 'app/movie_new.html', {'form': form})
+
+def movie_detail(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    imovie = Imdb_movie(movie.imdb_id)
+    return render(request, 'app/movie_detail.html', {
+        'movie': movie,
+        'imdb_movie': imovie,
+    })

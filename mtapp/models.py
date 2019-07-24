@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import requests
 
 # Create your models here.
 class Movie(models.Model):
@@ -27,3 +28,22 @@ class Movie(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Imdb_movie:
+    def __init__(self, imdb_id):
+        url = 'https://movie-database-imdb-alternative.p.rapidapi.com/' 
+        params = {
+            'i': imdb_id,
+            'r': 'json',
+        }
+        headers = {
+            'X-RapidAPI-Host': "movie-database-imdb-alternative.p.rapidapi.com",
+            'X-RapidAPI-Key': "fb54a2a79amshb032c359722438fp18abb9jsn80dd3fd3790f",
+        }
+        json_data = requests.get(url, params = params, headers = headers).json()
+        print(json_data)
+        self.title = json_data["Title"]
+        self.year = int(json_data["Year"])
+        self.imdb_rating = json_data["imdbRating"]
+        self.poster = json_data["Poster"]
+        print(self.title, self.year, self.imdb_rating, self.poster, sep=", ")
