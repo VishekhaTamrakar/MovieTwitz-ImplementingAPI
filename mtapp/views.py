@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.db.models import Q
 from watson_developer_cloud import LanguageTranslatorV3
 import json
 from .models import Movie
@@ -9,6 +10,8 @@ from .forms import MovieForm
 
 from .models import Movie, Imdb_movie
 from .forms import UserForm
+
+import requests
 
 now = timezone.now()
 
@@ -54,9 +57,6 @@ def movie_edit(request, pk):
             movie = form.save(commit=False)
             movie.updated_date = timezone.now()
             movie.save()
-        #    movie_list = Movie.objects.all()
-        #    return render(request, 'app/movie_list.html',
-        #                  {'movie_list': movie_list})
             return redirect('app:movie_detail', pk=pk)
     else:
         # edit
@@ -103,6 +103,60 @@ def movie_detail(request, pk):
         'imdb_movie': imovie,
     })
 
+def imdb_movie_detail(request, pk):
+    url = 'https://movie-database-imdb-alternative.p.rapidapi.com/' 
+    params = {
+        'i': pk,
+        'r': 'json',
+    }
+    headers = {
+        'X-RapidAPI-Host': "movie-database-imdb-alternative.p.rapidapi.com",
+        'X-RapidAPI-Key': "fb54a2a79amshb032c359722438fp18abb9jsn80dd3fd3790f",
+    }
+    movie = requests.get(url, params = params, headers = headers).json()
+    return render(request, 'app/imdb_movie_detail.html', {
+        'movie': movie,
+    })
+
+# Movie Search
+# --------------------------------------------
+def search_imdb(search_string):
+    url = 'https://movie-database-imdb-alternative.p.rapidapi.com/' 
+    params = {
+        'page': '1',
+        's': search_string,
+        'r': 'json',
+        'type': 'movie',
+    }
+    headers = {
+        'X-RapidAPI-Host': "movie-database-imdb-alternative.p.rapidapi.com",
+        'X-RapidAPI-Key': "fb54a2a79amshb032c359722438fp18abb9jsn80dd3fd3790f",
+    }
+    json_data = requests.get(url, params = params, headers = headers).json()
+    # for result in json_data['Search']:
+    #     print(result['Title'], result['Year'], result['imdbID'], sep=', ')
+    return json_data
+
+def movie_search(request):
+    movie_list = Movie.objects.all()
+    if(request.method == 'GET'):
+        search_string = request.GET.get('moviename').strip()
+        if search_string:
+            movie_list = Movie.objects.filter(Q(name__icontains=search_string))
+            imdb_movie_list = search_imdb(search_string)
+            return render(request, 'app/movie_list.html', {
+                'movie_list': movie_list,
+                'imdb_movie_list': imdb_movie_list,
+                'result_has_imdb_result': True,
+            })
+       
+    return render(request, 'app/movie_list.html',{
+                'movie_list': movie_list,
+    })
+
+
+# Static Pages
+# ---------------------------------------
 def About(request):
     return render(request, 'About.html')
 

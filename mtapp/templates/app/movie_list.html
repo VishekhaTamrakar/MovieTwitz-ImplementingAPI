@@ -4,25 +4,44 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-10">
-        <div class="row">
-            <div class="col-12">
-                <p>Admin Action: 
-                    <a href="{% url 'app:movie_new' %}">Add New</a>
-                </p>
+        {% if  not result_has_imdb_result %}
+            <div class="row">
+                <div class="col-12">
+                    <p>Admin Action: 
+                        <a href="{% url 'app:movie_new' %}">Add New</a>
+                    </p>
+                </div>
             </div>
-        </div>
+        {% endif %}
         <br/>
         <div class="row">
             {% for movie in movie_list %}
             <div class="col-lg-4 text-center">
                 <a href="{% url 'app:movie_detail' pk=movie.pk %}">
-                    <img src="{{ movie.poster }}" class="mx-auto" alt="Poster">
+                    <img src="{{ movie.poster }}" class="poster mx-auto" alt="Poster">
                 </a>
                 <h5>{{ movie.name }}</h5>
                 <p>Rating - {{ movie.rating }}</p>
             </div>
             {% endfor %}
         </div>
+
+        <!-- IMDb Result -->
+        {% if  result_has_imdb_result %}
+            <h2>Results from IMDb</h2><br/>
+            <div class="row">
+                {% for movie in imdb_movie_list.Search %}
+                    <div class="col-lg-4 text-center my-4">
+                        <a href="{% url 'app:imdb_movie_detail' pk=movie.imdbID %}">
+                            <img src="{{ movie.Poster }}" class="poster mx-auto" alt="Poster">
+                        </a>
+                        <h5>{{ movie.Title }}&nbsp;({{ movie.Year }})</h5>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}
