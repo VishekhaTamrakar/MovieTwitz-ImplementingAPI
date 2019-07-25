@@ -6,13 +6,13 @@
     <div class="col-lg-10">
         <div class="row">
             <div class="col-12">
-                <form>
+                <form id="movie_search_form" action="{% url 'app:movie_search' %}" method="GET" accept-charset="utf-8">
                     <div class="form-row">
                         <div class="col-10">
-                            <input type="text" class="form-control form-control-lg" placeholder="Search for movies">
+                            <input type="text" class="form-control form-control-lg" id="searchbox" name="moviename" placeholder="Search for movies">
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-primary btn-lg">Search</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Search</button>
                         </div>
                     </div>
                 </form>
@@ -23,7 +23,7 @@
             {% for movie in movie_list %}
             <div class="col-lg-4 text-center">
                 <a href="{% url 'app:movie_detail' pk=movie.pk %}">
-                    <img src="{{ movie.poster }}" class="mx-auto" alt="Poster">
+                    <img src="{{ movie.poster }}" class="poster mx-auto" alt="Poster">
                 </a>
                 <h5>{{ movie.name }}</h5>
                 <p>Rating - {{ movie.rating }}</p>

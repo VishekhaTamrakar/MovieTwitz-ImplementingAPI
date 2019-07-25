@@ -6,7 +6,7 @@
     <div class="col-lg-10">
         <div class="row">
             <div class="col-lg-4">
-                <img src="{{ movie.poster }}" alt="Poster">
+                <img src="{{ movie.poster }}" class="poster" alt="Poster">
             </div>
             <div class="col-lg-8">
                 <div class="row">
@@ -16,7 +16,7 @@
                     </a>
                 </div>
                 <p>Released on {{ movie.release_date }} | IMDb - {{ imdb_movie.imdb_rating }}</p>
-                
+                <br/>
                 <h4>Movie Details</h4>
                 <dl class="row">
                     <dt class="col-sm-4">Genre</dt>

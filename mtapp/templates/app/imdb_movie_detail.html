@@ -1,0 +1,44 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{{ movie.Poster }}" class="poster" alt="Poster">
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <h2>{{ movie.Title }}</h2>
+                </div>
+                <p>Released on {{ movie.Released }} | IMDb Rating - {{ movie.imdbRating }}</p>
+                <br/>
+                <h4>Movie Details</h4>
+                <dl class="row">
+                    <dt class="col-sm-4">Genre</dt>
+                    <dd class="col-sm-8">{{ movie.Genre }}</dd>
+        
+                    <dt class="col-sm-4">Directed By</dt>
+                    <dd class="col-sm-8">{{ movie.Director }}</dd>
+        
+                    <dt class="col-sm-4">Movie Runtime</dt>
+                    <dd class="col-sm-8">{{ movie.Runtime }}</dd>
+
+                    <dt class="col-sm-4">Notable Casts</dt>
+                    <dd class="col-sm-8">{{ movie.Actors }}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <br/>
+                <h2>Movie Plot</h2>
+                <p>{{ movie.Plot }}</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
