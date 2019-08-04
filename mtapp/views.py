@@ -8,6 +8,7 @@ from watson_developer_cloud import LanguageTranslatorV3
 import json
 from .models import Movie
 from .forms import MovieForm
+from datetime import date
 
 from .models import Movie, Imdb_movie, Box_Office
 from .forms import UserForm
@@ -22,6 +23,7 @@ def home(request):
     movie_list = Movie.objects.all()
     box_office_check()
     box_office = Box_Office.objects.all()
+
     print('>> Box office Movies loaded - ' + str(box_office.count()))
     return render(request, 'app/home.html', {
         'movie_list': movie_list,
@@ -172,6 +174,29 @@ def imdb_movie_detail(request, pk):
     return render(request, 'app/imdb_movie_detail.html', {
         'movie': movie,
     })
+
+def movie_nearby(request):
+    if request.method == "GET":
+        zip = request.GET.get('zipcode').strip()
+        if zip:
+            today = date.today().strftime('%Y-%m-%d')
+            print(today)
+            url = 'http://data.tmsapi.com/v1.1/movies/showings' 
+            params = {
+                'zip': zip,
+                'startDate': today,
+                'api_key': 'uw3r8cvvnpcyhqkw6mvu8jah'
+            }
+
+            showtimes = requests.get(url, params = params).json()
+            print('>>> API call: ')
+            return render(request, 'app/movie_nearby.html', {
+                'showtimes': showtimes,
+                'zipcode': zip,
+            })
+        else:
+            print('Empty Zip')
+
 
 # Movie Search
 # --------------------------------------------

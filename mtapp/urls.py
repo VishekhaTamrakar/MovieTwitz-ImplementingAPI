@@ -23,4 +23,6 @@ urlpatterns = [
     path('movie/<int:pk>/detail', views.movie_detail, name='movie_detail'),
     path('movie/<str:pk>/detail', views.imdb_movie_detail, name='imdb_movie_detail'),
     path('movie_search', views.movie_search, name='movie_search'),
+
+    path('movie_nearby', views.movie_nearby, name='movie_nearby'),
 ]
