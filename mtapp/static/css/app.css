@@ -36,6 +36,17 @@ img.poster {
     width: auto;
     height: auto;
 }
+
+img.poster-medium {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    display: block;
+    max-width:200px;
+    max-height:250px;
+    width: auto;
+    height: auto;
+}
   
   img:hover {
     box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);

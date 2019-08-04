@@ -42,9 +42,16 @@ class Imdb_movie:
             'X-RapidAPI-Key': "fb54a2a79amshb032c359722438fp18abb9jsn80dd3fd3790f",
         }
         json_data = requests.get(url, params = params, headers = headers).json()
-        print(json_data)
+        #print(json_data)
         self.title = json_data["Title"]
         self.year = int(json_data["Year"])
         self.imdb_rating = json_data["imdbRating"]
         self.poster = json_data["Poster"]
         print(self.title, self.year, self.imdb_rating, self.poster, sep=", ")
+
+class Box_Office(models.Model):
+    imdb_id = models.CharField(max_length=10)
+    movie_name = models.CharField(max_length=50)
+    poster = models.CharField(max_length=500, null=True)
+    refreshed_date = models.DateField()
+    #updated_date = models.DateTimeField(auto_now_add=True)
