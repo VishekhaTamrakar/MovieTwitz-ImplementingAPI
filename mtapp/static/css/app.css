@@ -1,11 +1,57 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto|Megrim&display=swap');
 
 .accent-color {
     color: darkcyan;
 }
 
 h2, h3, h4 {
-    font-family: Montserrat;
+    font-family: Roboto;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+h5, h6 {
+    font-family: Roboto;
+    font-weight: bolder;
+}
+
+body {
+    font-family: 'Open Sans';
+}
+
+/* Navbar Styles */
+
+.navbar {
+    background-color: #fedc3d;
+}
+
+.navbar-brand {
+    font-family: Megrim;
+    color: #000;
+    font-weight: 900;
+}
+
+.navbar-nav {
+    font-family: Roboto;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: #000;
+}
+
+.nav-link:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* Sidebar */
+
+.sidebar {
+    font-size: 0.8em;
 }
 
 .fa-pen-square{

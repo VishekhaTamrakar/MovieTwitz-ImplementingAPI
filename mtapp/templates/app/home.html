@@ -36,7 +36,7 @@
             <div class="col-lg-4">
                 <h4>Box Office Weekly Ranking</h4>
                 {% for movie in box_office %}
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush sidebar">
                         <li class="list-group-item">{{ forloop.counter }}.&nbsp;{{ movie.movie_name }}</li>
                     </ul>
                 {% endfor %}
