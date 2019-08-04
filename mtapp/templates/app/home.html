@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
 {% load staticfiles %}
 {% block content %}
 
@@ -34,12 +35,33 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <h4>Box Office Weekly Ranking</h4>
-                {% for movie in box_office %}
-                    <ul class="list-group list-group-flush sidebar">
-                        <li class="list-group-item">{{ forloop.counter }}.&nbsp;{{ movie.movie_name }}</li>
-                    </ul>
-                {% endfor %}
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Box Office Weekly Ranking</h4>
+                        {% for movie in box_office %}
+                            <ul class="list-group list-group-flush sidebar">
+                                <li class="list-group-item">{{ forloop.counter }}.&nbsp;{{ movie.movie_name }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                    <br/>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Showtimes by Zipcode</h4>
+                        <form id="showtime_form" action="{% url 'app:movie_nearby' %}" method="GET" accept-charset="utf-8">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input name="zipcode" type="text" class="form-control" placeholder="Zip">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2">Get Shows</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

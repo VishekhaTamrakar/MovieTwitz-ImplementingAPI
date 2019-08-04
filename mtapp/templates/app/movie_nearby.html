@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h2 class="pb-4">Movie around '{{ zipcode }}'</h2>
+        {% for movie in showtimes %}
+            <h4 class="pb-2">{{ movie.title }}</h4>
+            {% for show in movie.showtimes %}
+                <p class="pl-4">{{ show.theatre.name }}&nbsp;
+                    <span class="text-muted">
+                        {{ show.dateTime }}
+                    </span>
+                    {% if show.ticketURI %}
+                        <a href="{{ show.ticketURI }}">Book Tickets</a>
+                    {% endif %}
+                </p>
+            {% endfor %}
+            <br/>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
