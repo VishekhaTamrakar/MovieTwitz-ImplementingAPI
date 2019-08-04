@@ -22,7 +22,21 @@
         <input type="hidden" name="next" value="{{ next }}" />
         <p><button type="submit" class="btn btn-primary">Log In</button></p>
         <a href="{% url 'password_reset' %}">Forgot? Click here to reset</a>
+
+          <br>
+          <br>
+
+    <div class="social">
+  <ul>
+    <b><li class="facebook"><a style="font-style: oblique" href="{% url "social:begin" "facebook" %}">Sign in with Facebook</a></b></li>
+      <b><li class="google"><a style="font-style: oblique" href="{% url "social:begin" "google-oauth2" %}">Login with Google</a></b></li>
+
+  </ul>
+</div>
+
     </div>
   </div>
 </div>
+
+
 {% endblock %}

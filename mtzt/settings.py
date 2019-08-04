@@ -26,7 +26,7 @@ SECRET_KEY = 'si5ebd*n(6(qod@@&j4gkty+d1dpcyx!uj^!1zl=ght!bt+fu='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'requests',
+    'social_django',
+
 ]
 
 MIDDLEWARE = [
@@ -53,7 +55,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2'
+)
 
 ROOT_URLCONF = 'mtzt.urls'
 
@@ -158,6 +165,14 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'krvikash.dev@gmail.com'
 EMAIL_HOST_PASSWORD = 'dev@imkv'
 EMAIL_PORT = 587
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '615981855592257' # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd42844eb3aff54cd839bd1114723fb81' # Facebook App Secret
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '600254503959-v5u2lce03bpvleht1pmatrsndnvc5097.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'r2lMhKuaSLr-rG3ck3Hcv6uu' # Google Consumer Secret
+
 
 try:
     from .local_settings import *

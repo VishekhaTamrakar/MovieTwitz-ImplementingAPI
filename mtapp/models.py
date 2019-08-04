@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+
+
 import requests
 
 # Create your models here.
@@ -48,3 +50,5 @@ class Imdb_movie:
         self.imdb_rating = json_data["imdbRating"]
         self.poster = json_data["Poster"]
         print(self.title, self.year, self.imdb_rating, self.poster, sep=", ")
+
+
