@@ -23,4 +23,9 @@ urlpatterns = [
     path('movie/<int:pk>/detail', views.movie_detail, name='movie_detail'),
     path('movie/<str:pk>/detail', views.imdb_movie_detail, name='imdb_movie_detail'),
     path('movie_search', views.movie_search, name='movie_search'),
+
+    url(r'^$', views.product_list, name='product_list'),
+    path('product', views.product_list, name='product_list'),
+    path('product/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
+    path('product/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
 ]

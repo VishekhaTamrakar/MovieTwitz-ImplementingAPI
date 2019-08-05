@@ -18,6 +18,7 @@ from django.contrib.auth import views
 from django.urls import path, include
 from django.conf.urls import url
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mtapp.urls')),
@@ -28,4 +29,8 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', views.password_reset_complete, name='password_reset_complete'),
+    path('cart/', include('cart.urls', namespace='cart')),
+    url(r'^orders/', include('orders.urls', namespace='orders')),
+    path('payment/', include('payment.urls', namespace='payment')),
 ]
+

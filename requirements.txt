@@ -8,3 +8,4 @@ django-crispy-forms==1.7.2
 djangorestframework
 requests
 watson-developer-cloud
+braintree
