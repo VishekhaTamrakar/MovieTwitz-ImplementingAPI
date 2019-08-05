@@ -6,12 +6,13 @@ from datetime import date, timedelta
 from django.db.models import Q
 from watson_developer_cloud import LanguageTranslatorV3
 import json
-from .models import Movie
+from .models import Category, Product, Movie
 from .forms import MovieForm
 from datetime import date
 
 from .models import Movie, Imdb_movie, Box_Office
 from .forms import UserForm
+from cart.forms import CartAddProductForm
 
 import requests
 
@@ -233,6 +234,31 @@ def movie_search(request):
     return render(request, 'app/movie_list.html',{
                 'movie_list': movie_list,
     })
+
+#------------------------------
+# Shop Code
+
+@login_required()
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    return render(request,'shop/product/list.html',
+                    {'category': category,
+                    'categories': categories,
+                    'products': products})
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug,available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request,'shop/product/detail.html',{'product': product,
+                                                       'cart_product_form': cart_product_form})
+
+
+#----------------------------------------
 
 
 # Static Pages

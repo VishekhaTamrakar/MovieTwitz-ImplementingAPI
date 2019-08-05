@@ -42,7 +42,14 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'requests',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
+
 ]
+
+
+CART_SESSION_ID = 'cart'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -161,5 +169,19 @@ EMAIL_PORT = 587
 
 try:
     from .local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
+
+BRAINTREE_MERCHANT_ID = 'fgcwhk9mp5p2txnk'
+BRAINTREE_PUBLIC_KEY = '76jh6wpfz7bw8mfs'
+BRAINTREE_PRIVATE_KEY = '137b34c7ab0b66eea1143188233ebd71'
+
+from braintree import Configuration, Environment
+
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
