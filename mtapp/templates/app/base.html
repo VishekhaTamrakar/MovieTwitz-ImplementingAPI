@@ -12,9 +12,9 @@
     <script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 </head>
 
-<body>
+<body>  
 
-<nav class="navbar navbar-expand-md" style="background-color: gold">
+<nav class="navbar navbar-expand-md">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">MovieTwizt</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -29,7 +29,10 @@
                     <a class="nav-link" href="{% url 'app:movie_list' %}">Movie List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Movies Around</a>
+                    <a class="nav-link" href="{% url 'app:About' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:Contact' %}">Contact</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
@@ -55,13 +58,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'app:signup' %}">Sign Up</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:About' %}">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:Contact' %}">Contact</a>
-                    </li>
-
                 {% endif %}
             </ul>
         </div>
