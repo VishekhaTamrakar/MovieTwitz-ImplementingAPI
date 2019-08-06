@@ -10,12 +10,15 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @login_required()
-def order_create(request):
+def order_create(request, pk):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save()
+            updateOrder = Order.objects.latest('id')
+            updateOrder.cust_num = pk
+            updateOrder.save()
             for item in cart:
                 OrderItem.objects.create(order=order,product=item['product'],price=item['price'],
                                          quantity=item['quantity'])
@@ -49,8 +52,10 @@ def order_detail(request, id) :
                                                       'product': products,
                                                       'total_amount': total_amount})
 
-def customer_order(request,email) :
-    orders = Order.objects.filter(email=email)
-    order_count = orders.count()
-    print (order_count)
-    return render(request,'app/my_order.html',{'orders':orders,'order_count': order_count})
+def customer_order(request,id) :
+    try:
+        orders = Order.objects.filter(cust_num=id)
+        order_count = orders.count()
+        return render(request,'app/my_order.html',{'orders':orders,'order_count': order_count})
+    except Order.DoesNotExist:
+        return render(request, 'app/my_order.html', {'orders': None, 'order_count': 0})

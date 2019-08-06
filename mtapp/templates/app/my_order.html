@@ -10,7 +10,7 @@
     </p>
     <br/>
     <br/>
-
+{% if orders %}
     <div class="table-responsive">
         <table class="table table-sm table-hover">
             <thead>
@@ -44,7 +44,10 @@
                 </tr>
                 {% endfor %}
             </tbody>
-      </table>
+        </table>
+        {% else %}
+            <p> No order placed yet.</p>
+        {% endif %}
     </div>
 </div>
 </div>
