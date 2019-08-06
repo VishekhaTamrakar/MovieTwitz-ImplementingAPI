@@ -31,3 +31,17 @@ def order_create(request):
         form = OrderCreateForm()
     return render(request,'orders/order/create.html',{'cart': cart, 'form': form})
 
+@login_required
+def order_list(request):
+    orders = Order.objects.filter()
+    order_count = orders.count()
+    return render(request, 'app/admin_order_list.html',
+                  {'orders': orders,
+                   'order_count': order_count})
+
+def admin_order_detail(request, order_id):
+	order = get_object_or_404(Order, id=order_id)
+	return render(request,
+					'admin/orders/order/detail.html',
+					{'order': order})
+
