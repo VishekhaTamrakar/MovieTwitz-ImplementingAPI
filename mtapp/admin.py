@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Movie, Box_Office,Category, Product
 
+
 # Register your models here.
 class MovieList(admin.ModelAdmin):
     list_display = ('name', 'directed_by')
