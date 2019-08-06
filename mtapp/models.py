@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils import timezone
-
-
 import requests
 
 # Create your models here.
@@ -34,7 +32,7 @@ class Movie(models.Model):
 
 class Imdb_movie:
     def __init__(self, imdb_id):
-        url = 'https://movie-database-imdb-alternative.p.rapidapi.com/' 
+        url = 'https://movie-database-imdb-alternative.p.rapidapi.com/'
         params = {
             'i': imdb_id,
             'r': 'json',
