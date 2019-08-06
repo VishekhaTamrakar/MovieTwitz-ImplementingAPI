@@ -1,28 +1,40 @@
-{% extends "shop/base.html" %}
+{% extends "app/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 	Checkout
 {% endblock %}
 
 {% block content %}
-	<h1>Checkout</h1>
 
-	<div class="order-info">
-		<h3>Your order</h3>
-		<ul>
-			{% for item in cart %}
-				<li>
-					{{ item.quantity }}x {{ item.product.name }}
-					<span>${{ item.total_price }}</span>
-				</li>
-			{% endfor %}
-		</ul>
-		<p>Total: ${{ cart.get_total_price }}</p>
+<div class="row justify-content-center">
+	<div class="col-lg-10">
+		<h1>Checkout</h1>
+		<br/>
+		<div class="row">
+			<div class="col-4">
+				<h4>Order Summary</h4>
+				<ul>
+					{% for item in cart %}
+						<li>
+							{{ item.quantity }} x {{ item.product.name }}&nbsp;
+							<span>(${{ item.total_price }})</span>
+						</li>
+					{% endfor %}
+				</ul>
+				<p><strong>Total: ${{ cart.get_total_price }}</strong></p>
+				<br/>
+			</div>
+			<div class="col-6">
+				<h4>Please enter the details below</h4>
+				<form action="." method="post" class="order-form">
+					{{ form|crispy }}
+					<p><input type="submit" class="btn btn-primary" value="Place order"></p>
+					{% csrf_token %}
+				</form>
+			</div>
+		</div>
 	</div>
+</div>		
 
-	<form action="." method="post" class="order-form">
-		{{ form.as_p }}
-		<p><input type="submit" value="Place order"></p>
-		{% csrf_token %}
-	</form>
 {% endblock %}

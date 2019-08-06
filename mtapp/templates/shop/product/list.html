@@ -1,5 +1,5 @@
 
-{% extends "shop/base.html" %}
+{% extends "app/base.html" %}
 {% load static %}
 
 {% block title %}
@@ -8,37 +8,42 @@
 
 {% block content %}
 
-	<div id="sidebar">
-		<h3>Categories</h3>
-		<ul>
-			<li {% if not category %}class="selected"{% endif %}>
-				<a href="{% url "app:product_list" %}">All</a>
+<div class="row">
+	<div class="col-md-2">
+		<h5>Category</h5>
+		<ul class="list-group list-group-flush sidebar">
+			<li class="list-group-item">
+				<a href="{% url 'app:product_list' %}">All</a>
 			</li>
 			{% for c in categories %}
-				<li {% if category.slug == c.slug %}class="selected"
-				{% endif %}>
+				<li class="list-group-item">
 					<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>
 	</div>
-
-	<div id="main" class="product-list">
-		<h1>{% if category %}{{ category.name }}{% else %}Products
-		{% endif %}</h1>
-		{% for product in products %}
-            <div class="col-md-5">
-                 <a href="{{ product.get_absolute_url }}">
-					<img src="{% if product.image %}{{ product.image.url }}
-					{% else %}{% static "images/A1.jpg" %}{% endif %}">
-				</a>
-            <div class="caption">
-            <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-				<br>
-				${{ product.price }}
-            </div>
-            </div>
-		{% endfor %}
+	<div class="col-md-10">
+		<h2>
+			{% if category %}
+				{{ category.name }}
+			{% else %}
+				All Products
+			{% endif %}
+		</h2>
+		<div class="row">
+			{% for product in products %}
+				<div class="col-sm-6 col-md-4 col-lg-3 text-center">
+					<a href="{{ product.get_absolute_url }}">
+						<img class="products mx-auto" src="{{ product.image }}">
+						{{ product.name }}
+					</a>
+					<p>
+						<strong>${{ product.price }}</strong>
+					</p>
+				</div>
+			{% endfor %}			
+		</div>
 	</div>
+</div>
 
 {% endblock %}

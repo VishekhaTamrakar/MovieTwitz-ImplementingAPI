@@ -28,20 +28,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:movie_list' %}">Movie List</a>
                 </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:product_list' %}">Shop Now</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:About' %}">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:Contact' %}">Contact</a>
                 </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:product_list' %}">Shop Now</a>
-                    </li>
-                {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        {% with total_items=cart|length %}
+                            {% if cart|length > 0 %}
+                                <a class="nav-link" href="{% url "cart:cart_detail" %}">
+                                    CART [{{ total_items }}] | ${{ cart.get_total_price }}
+                                </a>
+                                {% else %}
+                                <a class="nav-link">Cart [0]</a>
+                                {% endif %}
+                        {% endwith %}
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ user.first_name }}
