@@ -9,3 +9,4 @@ djangorestframework
 requests
 watson-developer-cloud
 braintree
+social-auth-app-django==2.1.0
