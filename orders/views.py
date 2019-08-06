@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from .models import Order
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 @login_required()
@@ -17,7 +18,7 @@ def order_create(request, pk):
         if form.is_valid():
             order = form.save()
             updateOrder = Order.objects.latest('id')
-            updateOrder.cust_num = pk
+            updateOrder.cust_num = User.objects.get(pk=pk)
             updateOrder.save()
             for item in cart:
                 OrderItem.objects.create(order=order,product=item['product'],price=item['price'],
