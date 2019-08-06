@@ -1,4 +1,4 @@
-{% extends "shop/base.html" %}
+{% extends "app/base.html" %}
 {% load static %}
 
 {% block title %}
@@ -6,17 +6,29 @@
 {% endblock %}
 
 {% block content %}
-  <div class="product-detail">
-    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/A1.jpg" %}{% endif %}">
-    <h1>{{ product.name }}</h1>
-    <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
-    <p class="price">${{ product.price }}</p>
-    <form action="{% url "cart:cart_add" product.id %}" method="post">
-		  {{ cart_product_form }}
-		  {% csrf_token %}
-		  <input type="submit" value="Add to cart">
-	 </form>
-      <strong>Description:</strong>
-      <p>{{ product.description|linebreaks }}</p>
+
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="row">
+      <div class="col-lg-4">
+          <img src="{{ product.image }}" class="poster" alt="Product Image">
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-12">
+            <h2>{{ product.name }}</h2>
+            <h4>${{ product.price }}</h4><br/>
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+              {{ cart_product_form }}
+              {% csrf_token %}
+              <input type="submit" value="Add to cart">
+            </form>
+            <strong>Description:</strong>
+            <p>{{ product.description|linebreaks }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 {% endblock %}
