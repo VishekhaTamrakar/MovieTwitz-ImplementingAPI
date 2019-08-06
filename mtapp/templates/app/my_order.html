@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block content %}
+<div class="container-fluid padding">
+<div class="row padding">
+<div class="col-md-12">
+    <p>
+        Total Number of Orders: <strong>{{order_count}}</strong><br>
+    </p>
+    <br/>
+    <br/>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th>Invoice Number</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Paid</th>
+                    <th> View Details </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>
+                        {{ order.id}}
+                    </td>
+
+                    <td>
+                        {{ order.first_name}}&nbsp{{order.last_name}}
+                    </td>
+                    <td>{{ order.email }}</td>
+                    {% if order.paid == 'True' %}
+                    <td>   Payment Successful </td>
+                    {% else %}
+                    <td> Payment Pending </td>
+                    {% endif %}
+                   <td>  <a class="fa-icons" href="{% url 'orders:order_detail' id=order.id %}">
+                            <i class="fa fa-eye"></i>
+                        </a> </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+      </table>
+    </div>
+</div>
+</div>
+</div>
+{% endblock%}
