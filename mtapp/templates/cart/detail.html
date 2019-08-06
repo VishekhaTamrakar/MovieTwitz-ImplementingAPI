@@ -57,11 +57,10 @@
 				<p class="text-right">
 					<a href="{% url "app:product_list" %}" class="button light">Continue shopping</a>
 					&nbsp;&nbsp;
-					<a href="{% url "orders:order_create" %}" class="button">Checkout</a>
+					<a href="{% url "orders:order_create" pk=user.id %}" class="button">Checkout</a>
 				</p>
 			</div>
 		</div>
 	</div>
 </div>
-	
 {% endblock %}

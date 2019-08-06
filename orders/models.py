@@ -1,9 +1,11 @@
 from django.db import models
 from mtapp.models import Product
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Order(models.Model):
+	cust_num = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='customer', null=True)
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
 	email = models.EmailField()

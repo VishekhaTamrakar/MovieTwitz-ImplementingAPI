@@ -5,7 +5,8 @@ from django.urls import path
 app_name = 'orders'
 
 urlpatterns = [
-    url(r'^create/$',views.order_create,name='order_create'),
-    path('order_list', views.order_list, name='order_list'),
-    path('admin/order/<int:order_id>/', views.admin_order_detail, name='admin_order_detail'),
-    ]
+    path('create/<int:pk>/',views.order_create,name='order_create'),
+    path('order_list', views.order_list, name= 'order_list'),
+    path('order_detail/<int:id>/', views.order_detail, name='order_detail'),
+    path('customer_order/<int:id>/', views.customer_order, name='customer_order'),
+]
