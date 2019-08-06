@@ -2,14 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from datetime import date, timedelta
 from django.db.models import Q
 from watson_developer_cloud import LanguageTranslatorV3
 import json
-from .models import Movie
+from .models import Category, Product, Movie
 from .forms import MovieForm
+from datetime import date
 
-from .models import Movie, Imdb_movie
+from .models import Movie, Imdb_movie, Box_Office
 from .forms import UserForm
+from cart.forms import CartAddProductForm
 
 import requests
 
@@ -19,9 +22,64 @@ now = timezone.now()
 
 def home(request):
     movie_list = Movie.objects.all()
+    box_office_check()
+    box_office = Box_Office.objects.all()
+
+    print('>> Box office Movies loaded - ' + str(box_office.count()))
     return render(request, 'app/home.html', {
         'movie_list': movie_list,
+        'box_office': box_office,
     })
+
+# Box Office Views
+
+def box_office_check():
+    print('>>> Checking if Box office needs a refresh')
+    first_movie = Box_Office.objects.first()
+    if first_movie:
+        print('>>> Movie list present')
+        if date.today() - first_movie.refreshed_date > timedelta(days=3):
+            box_office_refresh()
+    else:
+        box_office_refresh()
+            
+
+def box_office_refresh():
+    print('>>> Performing box office refresh')
+    Box_Office.objects.all().delete()
+    url = 'https://uflixit.p.rapidapi.com/movies/boxoffice' 
+    headers = {
+        'X-RapidAPI-Host': "uflixit.p.rapidapi.com",
+        'X-RapidAPI-Key': "fb54a2a79amshb032c359722438fp18abb9jsn80dd3fd3790f",
+    }
+    json_data = requests.get(url, headers = headers).json()
+    counter = 0
+    for result in json_data['result']:
+        if counter > 4:
+            break
+        add_box_office_movie(result)
+        counter += 1
+
+def add_box_office_movie(imdb_id):
+    url = 'https://movie-database-imdb-alternative.p.rapidapi.com/' 
+    params = {
+        'i': imdb_id,
+        'r': 'json',
+    }
+    headers = {
+        'X-RapidAPI-Host': "movie-database-imdb-alternative.p.rapidapi.com",
+        'X-RapidAPI-Key': "fb54a2a79amshb032c359722438fp18abb9jsn80dd3fd3790f",
+    }
+    movie = requests.get(url, params = params, headers = headers).json()
+    # Create a Box Office Movie Object
+    bo = Box_Office()
+    bo.imdb_id = imdb_id
+    bo.movie_name = movie['Title']
+    bo.poster = movie['Poster']
+    bo.refreshed_date = date.today()
+    bo.save()
+
+# Auth Views
 
 def signup(request):
     if request.method=="POST":
@@ -118,6 +176,29 @@ def imdb_movie_detail(request, pk):
         'movie': movie,
     })
 
+def movie_nearby(request):
+    if request.method == "GET":
+        zip = request.GET.get('zipcode').strip()
+        if zip:
+            today = date.today().strftime('%Y-%m-%d')
+            print(today)
+            url = 'http://data.tmsapi.com/v1.1/movies/showings' 
+            params = {
+                'zip': zip,
+                'startDate': today,
+                'api_key': 'uw3r8cvvnpcyhqkw6mvu8jah'
+            }
+
+            showtimes = requests.get(url, params = params).json()
+            print('>>> API call: ')
+            return render(request, 'app/movie_nearby.html', {
+                'showtimes': showtimes,
+                'zipcode': zip,
+            })
+        else:
+            print('Empty Zip')
+
+
 # Movie Search
 # --------------------------------------------
 def search_imdb(search_string):
@@ -153,6 +234,31 @@ def movie_search(request):
     return render(request, 'app/movie_list.html',{
                 'movie_list': movie_list,
     })
+
+#------------------------------
+# Shop Code
+
+@login_required()
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    return render(request,'shop/product/list.html',
+                    {'category': category,
+                    'categories': categories,
+                    'products': products})
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug,available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request,'shop/product/detail.html',{'product': product,
+                                                       'cart_product_form': cart_product_form})
+
+
+#----------------------------------------
 
 
 # Static Pages

@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
 {% load staticfiles %}
 {% block content %}
 
@@ -20,15 +21,48 @@
         </div>
         <br/>
         <div class="row">
-            {% for movie in movie_list %}
-            <div class="col-lg-4 text-center">
-                <a href="{% url 'app:movie_detail' pk=movie.pk %}">
-                    <img src="{{ movie.poster }}" class="poster mx-auto" alt="Poster">
-                </a>
-                <h5>{{ movie.name }}</h5>
-                <p>Rating - {{ movie.rating }}</p>
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for movie in movie_list %}
+                        <div class="col-lg-4 text-center">
+                            <a href="{% url 'app:movie_detail' pk=movie.pk %}">
+                                <img src="{{ movie.poster }}" class="poster-medium mx-auto" alt="Poster">
+                            </a>
+                            <h6 class="mt-2">{{ movie.name }}</h6>
+                            <p class="mb-4">Rating - {{ movie.rating }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-            {% endfor %}
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Box Office Weekly Ranking</h4>
+                        {% for movie in box_office %}
+                            <ul class="list-group list-group-flush sidebar">
+                                <li class="list-group-item">{{ forloop.counter }}.&nbsp;{{ movie.movie_name }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                    <br/>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Showtimes by Zipcode</h4>
+                        <form id="showtime_form" action="{% url 'app:movie_nearby' %}" method="GET" accept-charset="utf-8">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input name="zipcode" type="text" class="form-control" placeholder="Zip">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2">Get Shows</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
