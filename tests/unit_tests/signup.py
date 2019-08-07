@@ -16,6 +16,7 @@ class view_summary(unittest.TestCase):
         driver.get('https://movie-twizt.herokuapp.com/')
         time.sleep(wait)
         driver.find_element_by_xpath('//*[@id="navbarResponsive"]/ul[2]/li[2]/a').click()
+        time.sleep(wait)
         driver.find_element_by_id('id_first_name').send_keys('test')
         driver.find_element_by_id('id_last_name').send_keys('testing')
         driver.find_element_by_id('id_username').send_keys('test' + str(random.randint(1, 100000)))
