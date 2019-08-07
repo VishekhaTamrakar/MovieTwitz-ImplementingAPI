@@ -19,7 +19,7 @@
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Paid</th>
-                    <th> View Details </th>
+                    <th>View Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,10 +30,10 @@
                     </td>
 
                     <td>
-                        {{ order.first_name}}&nbsp{{order.last_name}}
+                        {{ order.first_name}}&nbsp;{{order.last_name}}
                     </td>
                     <td>{{ order.email }}</td>
-                    {% if order.paid == 'True' %}
+                    {% if order.paid == True %}
                     <td>   Payment Successful </td>
                     {% else %}
                     <td> Payment Pending </td>

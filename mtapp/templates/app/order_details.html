@@ -2,44 +2,74 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
- <div class="table-responsive">
-        <table class="table table-sm table-hover">
-            <thead>
-                <tr>
-                    <th>Invoice Number</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for orderdetail in orderdetails %}
-                <tr>
-                    <td> {{ orderdetail.order_id }}</td>
-                    <td>
-                        {% for product in product %}
-                        {% if product.id == orderdetail.product_id %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <dl class="row">
+            <dt class="col-sm-3">Order for</dt>
+            <dd class="col-sm-9">{{ order_item.first_name }}&nbsp;{{ order_item.last_name }}</dd>
 
-                        {{ product.name }}
+            <dt class="col-sm-3">Email Address</dt>
+            <dd class="col-sm-9">{{ order_item.email }}</dd>
 
-                        {% endif %}
+            <dt class="col-sm-3">Shipping Address</dt>
+            <dd class="col-sm-9">{{ order_item.address }}, {{ order_item.city }}, Zip - {{ order_item.postal_code }}</dd>
+
+            <dt class="col-sm-3">Phone</dt>
+            <dd class="col-sm-9">{{ order_item.phone }}</dd>
+
+            <dt class="col-sm-3">Created Date</dt>
+            <dd class="col-sm-9">{{ order_item.created }}</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                    {% if order_item.paid == True %}
+                        <td>Payment Successful</td>
+                    {% else %}
+                        <td>Payment Pending</td>
+                    {% endif %}
+            </dd>
+        </dl>
+        <br/>
+        <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Invoice Number</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for orderdetail in orderdetails %}
+                        <tr>
+                            <td> {{ orderdetail.order_id }}</td>
+                            <td>
+                                {% for product in product %}
+                                {% if product.id == orderdetail.product_id %}
+
+                                {{ product.name }}
+
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+
+                            <td>
+                                {{ orderdetail.quantity }}
+                            </td>
+                            <td>{{ orderdetail.price }}</td>
+
+                        </tr>
                         {% endfor %}
-                    </td>
-
-                    <td>
-                        {{ orderdetail.quantity }}
-                    </td>
-                    <td>{{ orderdetail.price }}</td>
-
-                </tr>
-                {% endfor %}
-            <tr class="total">
-				<td>Total</td>
-				<td colspan="4"></td>
-				<td class="num">${{ total_amount }}</td>
-			</tr>
-            </tbody>
-      </table>
- </div>
+                    <tr class="total">
+                        <th colspan="2"></th>
+                        <th>Total</th>
+                        <th class="num">${{ total_amount }}</th>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

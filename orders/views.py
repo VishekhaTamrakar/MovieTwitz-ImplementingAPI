@@ -44,6 +44,8 @@ def order_list(request):
 
 def order_detail(request, id) :
     orderinline = OrderItem.objects.filter(order_id=id)
+    order_item = get_object_or_404(Order, pk=id)
+    print(order_item.first_name, order_item.last_name, sep=', ')
     total_amount = 0
     for order in orderinline.iterator():
         total_amount = total_amount + (order.price * order.quantity)
@@ -51,6 +53,7 @@ def order_detail(request, id) :
     products = Product.objects.filter()
     return render(request, 'app/order_details.html', {'orderdetails': orderinline,
                                                       'product': products,
+                                                      'order_item': order_item,
                                                       'total_amount': total_amount})
 
 def customer_order(request,id) :
