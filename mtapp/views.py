@@ -301,7 +301,7 @@ def movie_list_rest(request):
 def get_movie_rest(request, pk):
     # Retrieve, update or delete a movie instance.
     try:
-        movie = Movie.objects.get(pk=pk)
+        movie = Movie.objects.get(imdb_id=pk)
     except Movie.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

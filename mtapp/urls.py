@@ -32,5 +32,5 @@ urlpatterns = [
     path('product/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
 
     url(r'^api/movies/$', views.movie_list_rest),
-    url(r'^api/movies/(?P<pk>[0-9]+)$', views.get_movie_rest),
+    path('api/movies/<str:pk>', views.get_movie_rest),
 ]
