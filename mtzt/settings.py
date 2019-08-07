@@ -187,18 +187,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'r2lMhKuaSLr-rG3ck3Hcv6uu' # Google Consumer 
 
 # Settings for Django REST framework
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
+
 
 JWT_AUTH = {
     'JWT_VERIFY': True,
