@@ -25,3 +25,6 @@ class view_summary(unittest.TestCase):
         time.sleep(wait + 2)
         driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/button').click()
         time.sleep(wait)
+        driver.find_element_by_xpath('//*[@id="navbarResponsive"]/ul[2]/li[2]').click()
+        driver.find_element_by_xpath('//*[@id="navbarResponsive"]/ul[2]/li[2]/div/a[1]').click()
+        time.sleep(1)

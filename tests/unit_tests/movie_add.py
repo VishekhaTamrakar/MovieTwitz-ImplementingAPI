@@ -69,4 +69,3 @@ class view_summary(unittest.TestCase):
         elem = driver.find_element_by_xpath("//*[@id='navbarResponsive']/ul[2]/li/div/a[1]")
         elem.send_keys(Keys.RETURN)
         time.sleep(2)
-        driver.close

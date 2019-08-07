@@ -25,4 +25,3 @@ class view_summary(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="passwordNext"]/span/span').click()
         time.sleep(5)
 
-        driver.close()

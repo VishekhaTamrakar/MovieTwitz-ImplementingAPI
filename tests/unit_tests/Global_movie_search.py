@@ -12,7 +12,7 @@ class view_summary(unittest.TestCase):
     def test_login(self):
         driver = self.driver
         wait = 2
-        driver.get('https://movie-twizt.herokuapp.com/')
+        driver.get('https://movie-twizt.herokuapp.com/home')
         time.sleep(wait)
         driver.find_element_by_xpath('//*[@id="navbarResponsive"]/ul[2]/li[1]/a').click()
         time.sleep(wait)

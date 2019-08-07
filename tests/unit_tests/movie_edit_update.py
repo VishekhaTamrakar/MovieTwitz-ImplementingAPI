@@ -34,4 +34,3 @@ class view_summary(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="navbarDropdownMenuLink"]').click()
         driver.find_element_by_xpath('//*[@id="navbarResponsive"]/ul[2]/li[2]/div/a').click()
         time.sleep(3)
-        driver.close()
