@@ -4,3 +4,4 @@
 __pycache__
 db.sqlite3
 mtzt/local_settings.py
+venv

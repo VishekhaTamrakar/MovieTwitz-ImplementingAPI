@@ -1,0 +1,72 @@
+import unittest
+import time
+from . import mypkg
+from selenium.webdriver.common.keys import Keys
+
+class view_summary(unittest.TestCase):
+
+    def setUp(self):
+        #self.driver = webdriver.Chrome()
+        self.driver = mypkg.getOrCreateWebdriver()
+        self.driver.maximize_window()
+
+    def test_login(self):
+        driver = self.driver
+        wait = 2
+        driver.get('https://movie-twizt.herokuapp.com/')
+        time.sleep(wait)
+        driver.find_element_by_xpath('//*[@id="navbarResponsive"]/ul[2]/li[1]/a').click()
+        time.sleep(wait)
+        driver.find_element_by_id('id_username').send_keys('instructor')
+        driver.find_element_by_id('id_password').send_keys('instructor1a')
+        driver.find_element_by_xpath('/html/body/div/div/div/div/div/div/form/p/button').click()
+        time.sleep(wait)
+        elem = driver.find_element_by_xpath("//*[@id='navbarResponsive']/ul[1]/li[2]/a")
+        elem.send_keys(Keys.RETURN)
+        time.sleep(2)
+        elem = driver.find_element_by_xpath('/html/body/div/div/div/div/div/div[1]/div/p/a').click()
+        time.sleep(3)
+        elem = driver.find_element_by_id("id_name")
+        elem.send_keys('Kalank')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_release_date")
+        elem.send_keys('2019-07-04')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_imdb_id")
+        elem.send_keys('tt6988116')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_genre")
+        elem.send_keys('tt6988116')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_poster")
+        elem.send_keys('https://m.media-amazon.com/images/M/MV5BYTg4NWEyMjMtNTM2MS00M2I4LWFjOTQtMDRjNjc0ODI3NmY4XkEyXkFqcGdeQXVyOTc1MDE5NzI@._V1_SY1000_SX750_AL_.jpg')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_directed_by")
+        elem.send_keys('Karan Johar')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_runtime")
+        elem.send_keys(20)
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_notable_casts")
+        elem.send_keys('Varun Dhawan, Aila Bhat')
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_rating")
+        elem.send_keys(9)
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_disc_price")
+        elem.send_keys(40)
+        time.sleep(2)
+        time.sleep(2)
+        elem = driver.find_element_by_id("id_review")
+        elem.send_keys('Classic Movie')
+        time.sleep(2)
+        elem = driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/button').click()
+        time.sleep(3)
+        elem = driver.find_element_by_xpath("//*[@id='navbarResponsive']/ul[1]/li[2]/a")
+        elem = driver.find_element_by_xpath("//*[@id='navbarDropdownMenuLink']")
+        elem.send_keys(Keys.RETURN)
+        time.sleep(2)
+        elem = driver.find_element_by_xpath("//*[@id='navbarResponsive']/ul[2]/li/div/a[1]")
+        elem.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.close
