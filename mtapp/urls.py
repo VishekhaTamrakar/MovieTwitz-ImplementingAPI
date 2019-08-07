@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
+from rest_framework_jwt.views import obtain_jwt_token
 
 from . import views
 from django.urls import path
@@ -29,4 +30,7 @@ urlpatterns = [
     path('product', views.product_list, name='product_list'),
     path('product/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
     path('product/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
+
+    url(r'^api/movies/$', views.movie_list_rest),
+    url(r'^api/movies/(?P<pk>[0-9]+)$', views.get_movie_rest),
 ]
