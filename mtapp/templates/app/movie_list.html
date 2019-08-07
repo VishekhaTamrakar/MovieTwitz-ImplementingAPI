@@ -4,7 +4,7 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-10">
-        {% if  not result_has_imdb_result %}
+        {% if user.is_authenticated and user.is_staff and not result_has_imdb_result %}
             <div class="row">
                 <div class="col-12">
                     <p>Admin Action: 

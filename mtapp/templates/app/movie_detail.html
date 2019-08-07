@@ -11,9 +11,11 @@
             <div class="col-lg-8">
                 <div class="row">
                     <h2>{{ movie.name }}</h2>
-                    <a href="{% url 'app:movie_edit' pk=movie.pk%}">
-                        &nbsp;<i class="fas fa-pen-square" title="Edit"></i>
-                    </a>
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a href="{% url 'app:movie_edit' pk=movie.pk%}">
+                            &nbsp;<i class="fas fa-pen-square" title="Edit"></i>
+                        </a>
+                    {% endif %}
                 </div>
                 <p>Released on {{ movie.release_date }} | IMDb - {{ imdb_movie.imdb_rating }}</p>
                 <br/>
