@@ -16,6 +16,14 @@ from cart.forms import CartAddProductForm
 
 import requests
 
+# imports for API calls
+from rest_framework import status
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+
 now = timezone.now()
 
 # Create your views here.
@@ -270,3 +278,44 @@ def Contact(request):
  return render(request,'Contact.html')
 
 
+# REST API Expose
+# -----------------
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def movie_list_rest(request):
+    permission_classes = (IsAuthenticatedOrReadOnly)
+    if request.method == 'GET':
+        movie_list = Movie.objects.all()
+        serializer = MovieSerializer(movie_list, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+    
+    elif request.method == 'POST':
+        serializer = MovieSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def get_movie_rest(request, pk):
+    # Retrieve, update or delete a movie instance.
+    try:
+        movie = Movie.objects.get(imdb_id=pk)
+    except Movie.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = MovieSerializer(movie,context={'request': request})
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = MovieSerializer(movie, data=request.data,context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
