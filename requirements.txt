@@ -13,4 +13,4 @@ social-auth-app-django==2.1.0
 django-cors-headers==2.1.0
 django-filter==2.0.0
 djangorestframework-jwt==1.11.0
-pyJWT==1.5.3
+pyJWT==2.4.0
